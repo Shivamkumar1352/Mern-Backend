@@ -2,12 +2,12 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import userRouter from "./routes/userRoute.js";
-import cors from "cors"
+import productRouter from "./routes/productRoute.js";
+import cors from "cors";
 dotenv.config();
 const app = express();
 app.use(cors());
 app.use(express.json());
-
 const dbuser = encodeURIComponent(process.env.DBUSER);
 const dbpass = encodeURIComponent(process.env.DBPASS);
 
@@ -17,8 +17,7 @@ const dbpass = encodeURIComponent(process.env.DBPASS);
 //   });
 // });
 
-mongoose
-  .connect(
+mongoose.connect(
     `mongodb+srv://${dbuser}:${dbpass}@cluster0.rblbkxy.mongodb.net/`
   )
   .then(() => {
@@ -28,3 +27,4 @@ mongoose
   });
 
 app.use("/api/users", userRouter);
+app.use("/api/products", productRouter);
